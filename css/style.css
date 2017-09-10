@@ -1,0 +1,90 @@
+/* Header */
+.navbar {
+    padding: 1rem !important;
+}
+
+.navbar-light {
+    border-bottom: 5px solid #7d97ad;
+}
+
+.navbar-brand {
+    margin-left: 10px;
+}
+
+.logo {
+    width: 35px;
+}
+
+/* content */
+body {
+    color: #2d3c49 !important;
+}
+
+#my_map {
+    margin-top: 20px;
+    height: 85vh;
+    position: relative;
+}
+
+.bd-search {
+    position: relative;
+}
+
+.bd-search-results:empty {
+    display: none;
+}
+
+.bd-search .form-control {
+    margin: 10px 10px 0 0;
+    height: 2.45rem;
+    width: 13rem;
+    padding-top: .4rem;
+    padding-bottom: .4rem;
+    background-color: #fafafa;
+}
+
+.bd-search-results {
+    right: 0;
+    display: block;
+    padding: 0;
+    overflow: hidden;
+    font-size: .9rem;
+    display: none;
+}
+
+.bd-search-results .dropdown-item:first-child {
+    margin-top: .25rem;
+}
+
+.bd-search-results .dropdown-item:last-child {
+    margin-bottom: .25rem;
+}
+
+.bd-search-results .dropdown-item:focus,
+.bd-search-results .dropdown-item:hover,
+.bd-search-results .dropdown-item:active,
+.bd-search-results .dropdown-item.active {
+    cursor: pointer;
+    color: #fff;
+    text-decoration: none;
+    background-color: #007bff;
+}
+
+.bd-search-results .dropdown-item {
+    padding-right: .75rem;
+    padding-left: .75rem;
+}
+
+.place-img {
+    width: 350px;
+    height: 350px;
+    margin-bottom: 10px;
+}
+
+/* Small devices */
+@media (max-width: 768px) {
+    .place-img {
+        width: 230px;
+        height: 250px;
+    }
+}
