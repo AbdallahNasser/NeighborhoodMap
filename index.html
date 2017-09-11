@@ -5,7 +5,7 @@
     <!--Page title-->
     <title>Neighborhood map</title>
     <!--Viewport -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <!--page icon-->
     <link rel="shortcut icon" href="./img/plain-logo.png">
     <!--Style sheet and Bootstrap files-->
@@ -26,36 +26,40 @@
 
         <form role="search" class="navbar-form text-center bd-search hidden-sm-down">
             <!-- Search input -->
-            <input type="text" class="form-control" id="search-input" placeholder="Search for places" name="q" data-bind="value: Query, valueUpdate: 'keyup'" autocomplete="off">
+            <input type="text" class="form-control" id="search-input" placeholder="Search for places" name="q" data-bind="textInput: Query, valueUpdate: 'keyup'" autocomplete="off">
             <!-- places list -->
-            <div class="dropdown-menu bd-search-results" id="sidebar" data-bind="foreach: searchResults">
+            <ul class="dropdown-menu bd-search-results" id="sidebar" data-bind="foreach: searchResults">
                 <li class="dropdown-item" data-bind="text: name, click: nameClicked"></li>
-            </div>
+            </ul>
         </form>
         
     </nav><!--nav end-->
 
     <!--page container-->
     <div class="container m-t-30">
-
-        <div class="row">
-            <div class="col-md-12">
+        <main>
+            <div class="row">
+                <div class="col-md-12">
                     <!-- Map -->
                     <div id="my_map"></div>
+                </div>
             </div>
-        </div>
+        </main>
     </div><!--container end-->
 
     <!--Scripts-->
-    <script async defer
-        src=
-        "https://maps.googleapis.com/maps/api/js?key=AIzaSyDl44DV_tCwKR_Fb3RqUrJdbRV8b4VT5_g&callback=initMap">
-    </script>
+    
     <script src="js/lib/jquery-3.2.1.js"></script>
     <script src="js/lib/knockout-3.4.2.js"></script>
+    <script src="js/places.js"></script>
     <script src="js/map.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
     <script src="./js/bootstrap.min.js"></script>
+    <script async defer
+        src=
+        "https://maps.googleapis.com/maps/api/js?key=AIzaSyDl44DV_tCwKR_Fb3RqUrJdbRV8b4VT5_g&callback=initMap"
+        onerror="mapFail()">
+    </script>
 
 </body>
 </html>
