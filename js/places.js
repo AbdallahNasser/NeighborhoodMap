@@ -4,7 +4,7 @@
 var nearbyPlaces = [
     {
         placeName: "Al-Ahly Sporting Club",
-        location: {lat: 30.048484, lng:  31.222244},
+        location: {lat: 30.048484, lng: 31.222244},
         description: "Al Ahly Sporting Club, is an Egyptian sports club based in Cairo," +
         " Egypt. It is best known for its professional football team, " +
         "which plays in the Egyptian Premier League, the top tier in " +

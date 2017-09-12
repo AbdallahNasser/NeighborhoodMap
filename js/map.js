@@ -16,17 +16,17 @@ function initMap() {
 
     // Create blank infowindow with max width of 370
     locationInfowindow = new google.maps.InfoWindow({maxWidth: 370});
-
+    var i = 0;
     // The following group uses the location array to create an array of markers on initialize.
-    for (var i = 0; i < nearbyPlaces.length; i++) {
+    nearbyPlaces.forEach(function(listItem) {
         // Get the position, placeName & description from the nearbyPlaces array.
-        var position = nearbyPlaces[i].location;
-        var placeName = nearbyPlaces[i].placeName;
-        var description = nearbyPlaces[i].description;
+        var position = listItem.location;
+        var placeName = listItem.placeName;
+        var description = listItem.description;
+        console.log(placeName);
         // create message to appear on each infowindow
         // according to the marker selected
         var contentString = "<div id='content'>"+
-            "<span id='errorMessage'></span>" +
             "<h4 id='firstHeading' class='firstHeading'>"+ placeName + "</h4>"+
             "<div id='bodyContent'>"+
             "<p>" + description + " </p>"+
@@ -38,14 +38,14 @@ function initMap() {
             placeName: placeName,
             description: contentString,
             animation: google.maps.Animation.DROP,
-            id: i
+            id: i++
         });
         // Push the marker to markers array.
         markers.push(marker);
         // Create an onclick event to each marker to open an infowindow
         createClickEvent(marker, locationInfowindow);
 
-    }
+    });
     // Display all markers on page load
     showListings();
 }
@@ -66,6 +66,7 @@ function animate(marker){
     } else {
         marker.setAnimation(google.maps.Animation.BOUNCE);
     }
+    setTimeout(function(){ marker.setAnimation(null); }, 1400);
 }
 
 // Stop marker animation
@@ -101,7 +102,7 @@ function populateInfoWindow(marker, infowindow) {
                 // when no photo found on flicker
                 // display this message in the infowindow
                 infowindow.setContent(
-                    "<div>No photo found</div" +
+                    "<div>No photo found</div>" +
                     marker.description
                     );
 
@@ -113,8 +114,7 @@ function populateInfoWindow(marker, infowindow) {
             var err = textStatus + ", " + error;
             console.log( "Request Failed: " + err );
             console.log( "error" );
-            document.getElementById("errorMessage").innerHTML = "Request failed: " + err;
-
+            alert("An error has occured with flickr's api, please refresh the page or try again later!");
         })
         .always(function() {
             console.log( "complete" );
@@ -132,10 +132,10 @@ function populateInfoWindow(marker, infowindow) {
 function showListings() {
     var bounds = new google.maps.LatLngBounds();
     // Extend the boundaries of the map for each marker and display the marker
-    for (var i = 0; i < markers.length; i++) {
-        markers[i].setMap(map);
-        bounds.extend(markers[i].position);
-    }
+    markers.forEach(function(marker) {
+        marker.setMap(map);
+        bounds.extend(marker.position);
+    });
     google.maps.event.addDomListener(window, "resize", function() {
         map.fitBounds(bounds);
     });
@@ -150,30 +150,32 @@ function mapFail(){
 var newPlace = function(data){
     this.name = ko.observable(data.placeName);
     this.nameClicked = function(clickedData){
-        for(var i = 0; i < markers.length; i++){
-            if (markers[i].placeName.toLowerCase().startsWith(clickedData.name().toLowerCase())) {
-                markers[i].setVisible(true);
-                populateInfoWindow(markers[i], locationInfowindow);
-                viewModel.Query(markers[i].placeName);
+        markers.forEach(function(marker) {
+            if (marker.placeName.toLowerCase().startsWith(clickedData.name().toLowerCase())) {
+                marker.setVisible(true);
+                populateInfoWindow(marker, locationInfowindow);
+                viewModel.Query(marker.placeName);
             }else{
-                markers[i].setVisible(false);
+                marker.setVisible(false);
             }
-        }
+        });
     };
+};
+
+// x button clears input
+this.clearInput = function(){
+    viewModel.Query("");
 };
 
 // create viewModel with KO
 var viewModel = {
-    places:[new newPlace(nearbyPlaces[0]),
-    new newPlace(nearbyPlaces[1]),
-    new newPlace(nearbyPlaces[2]),
-    new newPlace(nearbyPlaces[3]),
-    new newPlace(nearbyPlaces[4]),
-    new newPlace(nearbyPlaces[5]),
-    new newPlace(nearbyPlaces[6]),
-    new newPlace(nearbyPlaces[7])
-    ]
+    places:[]
 };
+
+nearbyPlaces.forEach(function(nearbyPlace) {
+    viewModel.places.push(new newPlace(nearbyPlace));
+});
+
 
 viewModel.Query = ko.observable("");
 

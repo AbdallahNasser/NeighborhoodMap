@@ -35,9 +35,8 @@ body {
 }
 
 .bd-search .form-control {
-    margin: 10px 10px 0 0;
     height: 2.45rem;
-    width: 13rem;
+    width: 15rem;
     padding-top: .4rem;
     padding-bottom: .4rem;
     background-color: #fafafa;
@@ -81,10 +80,26 @@ body {
     margin-bottom: 10px;
 }
 
+.search-clear {
+    position: absolute;
+    right: 5px;
+    top: 0;
+    bottom: 0;
+    height: 14px;
+    margin: auto;
+    font-size: 14px;
+    cursor: pointer;
+    color: #ccc;
+}
+
 /* Small devices */
 @media (max-width: 768px) {
     .place-img {
         width: 230px;
         height: 250px;
+    }
+
+    .bd-search .form-control {
+        width: 14rem;
     }
 }
